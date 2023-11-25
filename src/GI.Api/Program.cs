@@ -1,6 +1,3 @@
-using WeatherService;
-using Common;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,6 +12,7 @@ builder.Services.AddMemoryCache();
 // Add custom services.
 builder.Services.AddWeatherService();
 builder.Services.AddCommonServices();
+builder.Services.AddTrafficService();
 
 var app = builder.Build();
 

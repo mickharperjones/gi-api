@@ -50,6 +50,14 @@ public class WeatherController : ControllerBase
         return Ok(forecast);
     }
 
+    [HttpGet("warnings")]
+    public async Task<IActionResult> Warnings()
+    {
+        var warnings = await weatherService.GetWarningsAsync();
+
+        return Ok(warnings);
+    }
+
     protected string LookupWeatherSymbol(int significantWeatherCode)
     {
         string icon = "";

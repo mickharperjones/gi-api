@@ -75,7 +75,7 @@ public class HighwaysEnglandService : IHighwaysEnglandService
     {
         var items = source.Descendants("item")
             .Where(a => (a.Element("road") != null && a.Element("road").Value.Trim().Equals(road)) &&
-            !(a.Elements("category").Any(b => b.Value.Equals("No Delay"))))
+            !a.Elements("category").Any(b => b.Value.Equals("No Delay")))
             .Select(b => TrafficEvent.Create(b))
             .ToList();
 
@@ -91,8 +91,8 @@ public class HighwaysEnglandService : IHighwaysEnglandService
     public List<TrafficEvent> PriorityEventsByRoads(XDocument source, string[] roads, bool currentOnly = true)
     {
         var items = source.Descendants("item")
-            .Where(a => (a.Element("road") != null && roads.Contains(a.Element("road").Value.Trim())) &&
-            !(a.Elements("category").Any(b => b.Value.Equals("No Delay"))))
+            .Where(a => a.Element("road") != null && roads.Contains(a.Element("road").Value.Trim()) &&
+            !a.Elements("category").Any(b => b.Value.Equals("No Delay")))
             .Select(b => TrafficEvent.Create(b))
             .ToList();
 
