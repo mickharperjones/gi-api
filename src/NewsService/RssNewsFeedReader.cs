@@ -21,11 +21,9 @@ public class RssNewsFeedReader : IRssNewsFeedReader
 
     public async Task<RssChannel?> GetFeedAsync(RssNewsFeedOptions rssOptions)
     {
-        RssChannel? channel = new RssChannel();
-
         // try get from cache.
         string cacheKey = $"{RSS_FEED_CACHE_KEY}{rssOptions.KeyName}";
-        channel = cacheService.Get<RssChannel>(cacheKey);
+        var channel = cacheService.Get<RssChannel>(cacheKey);
 
         if (channel != null)
             return channel;

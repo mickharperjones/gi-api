@@ -13,6 +13,7 @@ builder.Services.AddMemoryCache();
 builder.Services.AddWeatherService();
 builder.Services.AddCommonServices();
 builder.Services.AddTrafficService();
+builder.Services.AddNewsService();
 
 var app = builder.Build();
 
