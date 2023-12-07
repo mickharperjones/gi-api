@@ -16,18 +16,18 @@ public class WeatherController : ControllerBase
         this.weatherService = weatherService;
     }
 
-    [HttpGet("forecast/hourly", Name = "HourlyForecast")]
-    public async Task<IActionResult> Get()
+    [HttpGet("forecast/hourly/{hours?}", Name = "HourlyForecast")]
+    public async Task<IActionResult> Get(int hours = 8)
     {
         WeatherLocation location = new WeatherLocation() { 
             NameKey = "Glossop",
-            Latitude = 53.444255,
-            Longitude = -1.967394
+            Latitude = 53.44335,
+            Longitude = -1.94888
         };
 
         var weatherModel = await weatherService.GetFeedAsync(location);
 
-        var forecast = weatherService.HourlyForecast(weatherModel, 8);
+        var forecast = weatherService.HourlyForecast(weatherModel, hours);
 
         var forecastResponse = forecast.Select(a => new ForecastItem
         {
@@ -47,7 +47,7 @@ public class WeatherController : ControllerBase
             PrecipitationType = a.PrecipitationType
         }).ToList();
 
-        return Ok(forecast);
+        return Ok(forecastResponse);
     }
 
     [HttpGet("warnings")]
