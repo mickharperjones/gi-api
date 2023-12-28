@@ -57,6 +57,7 @@ public class TrafficController : ControllerBase
         // filter priority events by road.
         var events = trafficService.PriorityEventsByRoads(trafficFeed, roads, true);
 
+   
         var roadTrafficData = events.Select(a => new TrafficDelayItem {
             Road = a.Road,
             Category = (a.Categories != null && a.Categories.Count > 0) ? a.Categories[0] : "Unknown",
@@ -67,6 +68,14 @@ public class TrafficController : ControllerBase
             ExternalUrl = a.ExternalUrl
         });
 
+        // de-dupe by location and delay.
+        roadTrafficData = roadTrafficData
+            .GroupBy(t => new { 
+                Location = t.Location,
+                Delay = t.Delay })
+            .Select(g => g.First())
+            .ToList();
+   
         return Ok(roadTrafficData);
     }
 

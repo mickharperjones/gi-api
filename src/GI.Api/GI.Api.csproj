@@ -15,6 +15,7 @@
     <ProjectReference Include="..\WeatherService\WeatherService.csproj" />
     <ProjectReference Include="..\TrafficService\TrafficService.csproj" />
     <ProjectReference Include="..\NewsService\NewsService.csproj" />
+    <ProjectReference Include="..\EnvironmentService\EnvironmentService.csproj" />
   </ItemGroup>
 
 </Project>
