@@ -55,11 +55,15 @@ public class EnvironmentAgencyService: IEnvironmentService {
         if (readings != null)
             return readings;
 
+        var today = DateTime.Now;
+        var threeDaysEarlier = today.AddDays(-3);
+        var queryString = $"?startdate={threeDaysEarlier.ToString("yyyy-MM-dd")}&enddate={today.ToString("yyyy-MM-dd")}";
+
         using (var client = new HttpClient())
         {
             client.BaseAddress = new Uri(EA_BASE_URL);
 
-            HttpResponseMessage response = await client.GetAsync($"{STATION_READING_URL}/{stationId}/readings");
+            HttpResponseMessage response = await client.GetAsync($"{STATION_READING_URL}/{stationId}/readings{queryString}");
 
             if (response.IsSuccessStatusCode)
             {

@@ -38,6 +38,7 @@ public class WeatherController : ControllerBase
             WindSpeed10m = Math.Round(ConvertToMph(a.WindSpeed10m), 0, MidpointRounding.AwayFromZero),
             WindGustSpeed10m = Math.Round(ConvertToMph(a.WindGustSpeed10m), 0, MidpointRounding.AwayFromZero),
             UvIndex = a.UvIndex,
+            UVDescription = DecodeUVDecription(a.UvIndex),
             TotalPrecipAmount = a.TotalPrecipAmount,
             TotalSnowAmount = a.TotalSnowAmount,
             PrecipitationProbability = a.PrecipitationProbability,
@@ -194,4 +195,25 @@ public class WeatherController : ControllerBase
         return 2.23694 * metresPerSec;
     }
 
+    protected string DecodeUVDecription (int uvIndex) {
+        string description = "Unknown index";
+
+        if (uvIndex <= 2) { 
+            description = "Low exposure. No protection required. You can safely stay outside";
+        }
+        else if (uvIndex <= 5) { 
+            description = "Moderate exposure. Seek shade during midday hours, cover up and wear sunscreen";
+        }
+        else if (uvIndex <= 7) { 
+            description = "High exposure. Seek shade during midday hours, cover up and wear sunscreen";
+        }
+        else if (uvIndex <= 10) { 
+            description = "Very high. Avoid being outside during midday hours. Shirt, sunscreen and hat are essential";
+        }
+        else if (uvIndex > 10) { 
+            description = "Extreme. Avoid being outside during midday hours. Shirt, sunscreen and hat essential.";
+        }
+
+        return description;
+    }
 }

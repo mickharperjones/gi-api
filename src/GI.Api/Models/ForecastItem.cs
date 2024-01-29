@@ -10,6 +10,7 @@ public class ForecastItem {
     public double WindSpeed10m   {get; set;}
     public double WindGustSpeed10m {get; set;}
     public int UvIndex {get; set;}
+    public string UVDescription { get; set; }
     public double TotalPrecipAmount {get; set;}
     public int TotalSnowAmount {get; set;}
     public int PrecipitationProbability {get; set;}
